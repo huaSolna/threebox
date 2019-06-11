@@ -27,10 +27,9 @@ Threebox.prototype = {
     init: function (map, glContext, options){
 
         this.map = map;
-
         // Set up a THREE.js scene
-        this.renderer = new THREE.WebGLRenderer( { 
-            alpha: true, 
+        this.renderer = new THREE.WebGLRenderer( {
+            alpha: true,
             antialias: true,
             canvas: map.getCanvas(),
             context: glContext
@@ -55,10 +54,10 @@ Threebox.prototype = {
         this.raycaster = new THREE.Raycaster();
 
         // apply starter options
-        
+
         this.options = utils._validate(options || {}, defaultOptions);
         if (this.options.defaultLights) this.defaultLights();
-        
+
     },
 
     // Objects
@@ -103,7 +102,7 @@ Threebox.prototype = {
     queryRenderedFeatures: function(point){
 
         var mouse = new THREE.Vector2();
-        
+
         // // scale mouse pixel position to a percentage of the screen's width and height
         mouse.x = ( point.x / this.map.transform.width ) * 2 - 1;
         mouse.y = 1 - ( point.y / this.map.transform.height ) * 2;
@@ -117,14 +116,14 @@ Threebox.prototype = {
     },
 
     update: function() {
-        
+
         if (this.map.repaint) this.map.repaint = false
 
         var timestamp = Date.now();
 
         // Update any animations
         this.objects.animationManager.update(timestamp);
-        
+
         this.renderer.state.reset();
 
         // Render the scene and repaint the map
@@ -164,9 +163,9 @@ Threebox.prototype = {
     },
 
     addAtCoordinate: function(obj, lnglat, options) {
-        
+
         console.warn('addAtCoordinate() has been deprecated. Check out the and threebox.add() Object.setCoords() methods instead.')
-        
+
         obj = this.Object3D({obj:obj});
 
         obj.setCoords(lnglat)
@@ -190,4 +189,3 @@ var defaultOptions = {
     passiveRendering: true
 }
 module.exports = exports = Threebox;
-

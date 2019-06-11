@@ -3,9 +3,8 @@ var utils = require("../utils/utils.js");
 var validate = require("../utils/validate.js");
 
 function AnimationManager(map) {
-
     this.map = map
-    this.enrolledObjects = [];    
+    this.enrolledObjects = [];
     this.previousFrameTime;
 
 };
@@ -39,7 +38,7 @@ AnimationManager.prototype = {
                 var scaling = options.scale || options.scaleX || options.scaleY || options.scaleZ;
 
                 if (rotating) {
-                    
+
                     var r = obj.rotation;
                     options.startRotation = [r.x, r.y, r.z];
 
@@ -59,7 +58,7 @@ AnimationManager.prototype = {
                     options.scalePerMs = options.endState.scale
                         .map(function(scale, index){
                             return (scale-options.startScale[index])/options.duration;
-                        })                    
+                        })
                 }
 
                 if (translating) options.pathCurve = new THREE.CatmullRomCurve3(utils.lnglatsToWorld([obj.coordinates, options.coords]));
@@ -72,7 +71,7 @@ AnimationManager.prototype = {
                 this.animationQueue
                     .push(entry);
 
-                map.repaint = true;   
+                map.repaint = true;
             }
 
             //if no duration set, stop object's existing animations and go to that state immediately
@@ -94,12 +93,12 @@ AnimationManager.prototype = {
         obj.followPath = function (options, cb){
 
             var entry = {
-                type: 'followPath', 
+                type: 'followPath',
                 parameters: utils._validate(options, defaults.followPath)
             };
-                     
+
             utils.extend(
-                entry.parameters, 
+                entry.parameters,
                 {
                     pathCurve: new THREE.CatmullRomCurve3(
                         utils.lnglatsToWorld(options.path)
@@ -108,13 +107,13 @@ AnimationManager.prototype = {
                     expiration: Date.now() + entry.parameters.duration,
                     cb: cb
                 }
-            );    
+            );
 
             this.animationQueue
                 .push(entry);
 
             map.repaint = true;
-            
+
             return this;
         };
 
@@ -122,7 +121,7 @@ AnimationManager.prototype = {
 
             var p = options.position; // lnglat
             var r = options.rotation; // radians
-            var s = options.scale; // 
+            var s = options.scale; //
             var w = options.worldCoordinates; //Vector3
             var q = options.quaternion // [axis, angle]
 
@@ -133,14 +132,14 @@ AnimationManager.prototype = {
             }
 
             if (r) this.rotation.set(r[0], r[1], r[2]);
-            
+
             if (s) this.scale.set(s[0], s[1], s[2]);
-            
+
             if (q) this.quaternion.setFromAxisAngle(q[0], q[1]);
-            
+
             if (w) this.position.copy(w);
 
-            map.repaint = true
+            // map.repaint = true
         }
     },
 
@@ -151,7 +150,7 @@ AnimationManager.prototype = {
         var dimensions = ['X','Y','Z'];
 
         //iterate through objects in queue. count in reverse so we can cull objects without frame shifting
-        for (var a = this.enrolledObjects.length-1; a>=0; a--){   
+        for (var a = this.enrolledObjects.length-1; a>=0; a--){
 
             var object = this.enrolledObjects[a];
 
