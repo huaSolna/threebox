@@ -139,7 +139,7 @@ AnimationManager.prototype = {
 
             if (w) this.position.copy(w);
 
-            // map.repaint = true
+            map.repaint = true
         }
     },
 

@@ -26,7 +26,8 @@ Threebox.prototype = {
 
     init: function (map, glContext, options){
 
-        this.map = map;
+        this.map = window.map = map;
+        
         // Set up a THREE.js scene
         this.renderer = new THREE.WebGLRenderer( {
             alpha: true,
