@@ -33,7 +33,7 @@ Objects.prototype = {
         line.options = options || {};
         line.position.copy(normalized.position)
 
-  		return line  
+  		return line
 	},
 
 
@@ -41,11 +41,11 @@ Objects.prototype = {
 
 	},
 
-	_addMethods: function(obj, static){
+	_addMethods: function(obj, _static){
 
 		var root = this;
 
-		if (static) {
+		if (_static) {
 
 		}
 
@@ -53,8 +53,8 @@ Objects.prototype = {
 
 			if (!obj.coordinates) obj.coordinates = [0,0,0];
 
-	    	// Bestow this mesh with animation superpowers and keeps track of its movements in the global animation queue			
-			root.animationManager.enroll(obj); 
+	    	// Bestow this mesh with animation superpowers and keeps track of its movements in the global animation queue
+			root.animationManager.enroll(obj);
 			obj.setCoords = function(lnglat){
 
 		        /** Place the given object on the map, centered around the provided longitude and latitude
@@ -70,7 +70,7 @@ Objects.prototype = {
 
 				obj.coordinates = lnglat;
 	        	obj.set({position:lnglat})
-		        
+
 
 		        return obj;
 
@@ -104,12 +104,12 @@ Objects.prototype = {
 		}
 
 		obj.duplicate = function(a) {
-			var dupe = obj.clone(); 
+			var dupe = obj.clone();
 			dupe.userData = obj.userData;
 			root._addMethods(dupe);
 			return dupe
 		}
-	
+
 		return obj
 	},
 
@@ -149,7 +149,7 @@ Objects.prototype = {
 			material: 'MeshBasicMaterial'
 		},
 
-		tube: {                
+		tube: {
 			geometry: null,
             radius: 1,
             sides:6,
@@ -174,7 +174,7 @@ Objects.prototype = {
         },
 
         Object3D: {
-        	obj: null, 
+        	obj: null,
 			units: 'scene'
         }
 	},
