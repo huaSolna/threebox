@@ -93,7 +93,7 @@ Objects.prototype = {
 
 		obj.add = function(){
 	        root.world.add(obj);
-	        if (!static) obj.set({position:obj.coordinates});
+	        if (!_static) obj.set({position:obj.coordinates});
 	        return obj;
 		}
 
